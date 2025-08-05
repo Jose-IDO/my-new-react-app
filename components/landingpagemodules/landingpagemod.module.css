@@ -1,0 +1,28 @@
+.landingpagemod{
+    display: flex;
+    flex-direction: column;
+}
+
+.modcolorone{
+    background-color: #ffffff;
+    opacity: 0.95;
+    border-radius: 12px;
+    padding: 20px; 
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+}
+
+/* .modcolortwo{
+    background-color: #c17641;
+    opacity: 0.7;
+    border-radius: 15px;
+}
+.modcolorthree{
+    background-color: #c17641;
+    opacity: 0.7;
+    border-radius: 15px;
+} */

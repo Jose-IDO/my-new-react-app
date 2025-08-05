@@ -1,0 +1,197 @@
+
+
+.linksview {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px; 
+}
+
+.title {
+  font-family: 'Anton', sans-serif;
+  font-size: 35px; 
+  color: #000000;
+  margin: 0;
+  text-align: center;
+}
+
+
+.stats {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin: 15px 0;
+}
+
+.statitem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  min-width: 120px;
+}
+
+.statcount {
+  font-size: 36px; 
+  font-weight: bold;
+  color: #d96614;
+  font-family: 'Anton', sans-serif;
+}
+
+.statlabel {
+  font-size: 16px; 
+  color: #333333;
+  text-align: center;
+}
+
+
+.tableheader {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 15px;
+  gap: 8px;
+}
+
+.headeritem {
+  font-weight: bold;
+  font-size: 16px;
+  color: #333333;
+  text-align: center;
+  padding: 8px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.headeritem:last-child {
+  border-bottom: none;
+}
+
+
+@media screen and (min-width: 481px) {
+  .linksview {
+    gap: 18px;
+  }
+  
+  .title {
+    font-size: 45px;
+  }
+  
+  .stats {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 25px;
+    margin: 18px 0;
+  }
+  
+  .statitem {
+    flex: 1;
+    min-width: 140px;
+  }
+  
+  .statcount {
+    font-size: 42px;
+  }
+  
+  .statlabel {
+    font-size: 17px;
+  }
+  
+  .tableheader {
+    flex-direction: row;
+    padding: 15px;
+    margin-top: 18px;
+    gap: 0;
+  }
+  
+  .headeritem {
+    flex: 1;
+    font-size: 17px;
+    padding: 0 10px;
+    border-bottom: none;
+    border-right: 1px solid #e0e0e0;
+  }
+  
+  .headeritem:last-child {
+    border-right: none;
+  }
+}
+
+
+@media screen and (min-width: 768px) {
+  .linksview {
+    gap: 20px;
+  }
+  
+  .title {
+    font-size: 55px;
+  }
+  
+  .stats {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 40px;
+    margin: 20px 0;
+  }
+  
+  .statitem {
+    flex: 1;
+    min-width: 160px;
+  }
+  
+  .statcount {
+    font-size: 46px;
+  }
+  
+  .statlabel {
+    font-size: 18px;
+  }
+  
+  .tableheader {
+    padding: 15px;
+    margin-top: 20px;
+  }
+  
+  .headeritem {
+    font-size: 18px;
+  }
+}
+
+
+@media screen and (min-width: 1024px) {
+  .linksview {
+    gap: 20px;
+  }
+  
+  .title {
+    font-size: 60px;
+  }
+  
+  .stats {
+    gap: 40px;
+    margin: 20px 0;
+  }
+  
+  .statcount {
+    font-size: 48px;
+  }
+  
+  .statlabel {
+    font-size: 18px;
+  }
+  
+  .tableheader {
+    padding: 15px;
+    margin-top: 20px;
+  }
+  
+  .headeritem {
+    font-size: 18px;
+  }
+}

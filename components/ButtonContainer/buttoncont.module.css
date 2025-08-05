@@ -1,0 +1,57 @@
+
+
+.buttoncont {
+
+  height: 60px;
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 10px;
+  transition: transform 0.3s ease;
+  column-gap: 10px;
+}
+
+
+.buttoncont :first-child {
+  display: none;
+}
+
+.buttoncont :last-child {
+  display: flex;
+}
+
+
+@media screen and (min-width: 481px) {
+  .buttoncont {
+    padding: 15px;
+    column-gap: 15px;
+  }
+  
+ 
+  .buttoncont :first-child {
+    display: none;
+  }
+  
+  .buttoncont :last-child {
+    display: flex;
+  }
+}
+
+
+@media screen and (min-width: 768px) {
+  .buttoncont {
+    padding: 20px;
+    column-gap: 20px;
+  }
+  
+  
+  .buttoncont :first-child {
+    display: flex;
+  }
+  
+  .buttoncont :last-child {
+    display: flex;
+  }
+}
