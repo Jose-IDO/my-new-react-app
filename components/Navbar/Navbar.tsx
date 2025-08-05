@@ -11,6 +11,7 @@ import styles from './navbar.module.css'
 
 export const  Navbar  = () => {
   // console.log(className);
+  console.log( React)
   return (
     // <div className = {styles.navbar}>
     <div className = {styles.navbar}>
