@@ -55,6 +55,38 @@
   align-items: center;
 }
 
+.popupBox {
+  flex-direction: column;
+ display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  /* gap: 20px; */
+
+}
+
+.popupContent{
+  flex-direction: row;
+ display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  gap: 10px;
+  /* margin-top: 10px; */
+}
+
+.input {
+  width: 60%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 50px;
+  margin-top: 10px;
+  height: 75px;
+  font-weight: 900;
+  /* opacity: unset; */
+}
+
 
 @media screen and (min-width: 481px) {
   .landingpagemodulecont {

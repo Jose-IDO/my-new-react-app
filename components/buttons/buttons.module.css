@@ -68,3 +68,47 @@ body{
   opacity: 100%;
   transform: translateY(-3px);
 }
+
+.popupbuttonone{
+ cursor: pointer;
+   display: flex;
+  align-items: center;
+  justify-content: center;
+  height: fit-content;
+  width: fit-content;
+  padding: 8px 16px;
+  background-color: #b45700;
+  color: rgb(18, 17, 17);
+  border: none;
+  border-radius: 12px;
+  font-size: 50px;
+  transition: transform 0.3s ease;
+  opacity: 1;
+}
+
+.popupbuttonone:hover{
+  opacity: 100%;
+  transform: translateY(-3px);
+}
+
+.popupbuttontwo{
+ cursor: pointer;
+   display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 130px;
+  width: fit-content;
+  padding: 8px 16px;
+  background-color: #b45700;
+  color: rgb(18, 17, 17);
+  border: none;
+  border-radius: 12px;
+  font-size: 50px;
+  transition: transform 0.3s ease;
+  opacity: 1;
+}
+
+.popupbuttontwo:hover{
+  opacity: 100%;
+  transform: translateY(-3px);
+}
