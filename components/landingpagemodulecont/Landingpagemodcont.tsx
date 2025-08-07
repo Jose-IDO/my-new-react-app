@@ -67,12 +67,12 @@ export const Landingpagemodcont: React.FC = () => {
               Save, organize, and access your favorite links from anywhere - no browser limitations
             </div>
             <Buttons bgColor="contbuttonone" onClick={handleOpenPopup}>
-              Add your first link
+              Add your link
             </Buttons>
 
             {popup && (
               <div className={styles.popupBox}>
-                <p>Add your first link below</p>
+                <p>Add your link below</p>
                 <div className={styles.popupContent}>
                   <div>
                 
