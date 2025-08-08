@@ -2,7 +2,7 @@ import React from 'react'
 import { ButtonCont } from '../ButtonContainer/ButtonCont'
 import { SearchBar } from '../SearchBar/SearchBar'
 import styles from './navbar.module.css'
-import { Overlay } from '../overlay/Overlay'
+// import { Overlay } from '../overlay/Overlay'
 
 
 // type Props = {

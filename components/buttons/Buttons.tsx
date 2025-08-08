@@ -3,7 +3,7 @@ import styles from './Buttons.module.css'
 
 type ButtonProps = {
   children: React.ReactNode;
-  bgColor: string;
+  bgColor?: string;
   onClick?: () => void
 
 }

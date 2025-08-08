@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './overlay.module.css'
 // import { Landingpagemodule } from '../landingpagemodules/Landingpagemodule'
 import closeIcon from '../../src/assets/close.png'
-import { Buttons } from '../buttons/Buttons'
+// import { Buttons } from '../buttons/Buttons'
 
 
 // type overlayprops ={
