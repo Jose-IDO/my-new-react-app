@@ -4,6 +4,7 @@ import { useState } from 'react';
 import styles from './App.module.css';  
 import { Navbar } from '../components/Navbar/Navbar';
 import { Landingpagemodcont } from '../components/landingpagemodulecont/Landingpagemodcont'
+import { Overlay } from '../components/overlay/Overlay';
 // import { Landingpagemodule } from '../components/landingpagemodules/Landingpagemodule';
 
 
@@ -13,7 +14,8 @@ function App()  {
   console.log(count, setCount);
 
   return (
-    <div className={styles.App}> 
+    <div className={styles.App}>
+      {/* <Overlay/>  */}
       <Navbar/>
       <Landingpagemodcont/>
     </div>

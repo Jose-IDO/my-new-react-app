@@ -6,6 +6,7 @@ import { Buttons } from '../buttons/Buttons'
 import { LinksView } from '../LinksView/LinksView';
 import { Footer } from '../Footer/Footer';
 import type { LinkType } from '../../src/types/LinkTypes'
+// import { Overlay } from '../overlay/Overlay'
 
  
 export const Landingpagemodcont: React.FC = () => {
