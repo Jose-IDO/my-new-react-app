@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './LinksView.module.css'
 import type { LinkType } from '../../src/types/LinkTypes'
+import { Overlay } from '../overlay/Overlay'
 
 type LinksViewProps = {
   links: LinkType[];
@@ -13,7 +14,9 @@ export const LinksView: React.FC<LinksViewProps> = ({ links }) => {
 
   return (
     <div className={styles.linksview}>
+        {/* <Overlay className = {styles.overlay}/>  */}
       <h2 className={styles.title}>Your Saved Links</h2>
+      
       
       <div className={styles.stats}>
         <div className={styles.statitem}>

@@ -6,7 +6,7 @@ import { Buttons } from '../buttons/Buttons'
 import { LinksView } from '../LinksView/LinksView';
 import { Footer } from '../Footer/Footer';
 import type { LinkType } from '../../src/types/LinkTypes'
-// import { Overlay } from '../overlay/Overlay'
+import { Overlay } from '../overlay/Overlay'
 
  
 export const Landingpagemodcont: React.FC = () => {
@@ -122,10 +122,14 @@ export const Landingpagemodcont: React.FC = () => {
           </div>  
         </Landingpagemodule>
 
+           {/* <Overlay className = {styles.overlay}/>  */}
+
         <Landingpagemodule modcolor="modcolorone">
           <div className={styles.secondmodule}>
             <LinksView links={links} />
-          </div>  
+            {/* <Overlay className = {styles.overlay}/>    */}
+          </div>
+            
         </Landingpagemodule>
       </div>
       
