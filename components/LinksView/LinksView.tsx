@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './LinksView.module.css'
 import type { LinkType } from '../../src/types/LinkTypes'
-import { Overlay } from '../overlay/Overlay'
+// import { Overlay } from '../overlay/Overlay'
 
 type LinksViewProps = {
   links: LinkType[];

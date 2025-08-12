@@ -3,11 +3,18 @@ import styles from './overlay.module.css'
 import closeIcon from '../../src/assets/close.png'
 import { Login } from '../Authentication/Login'
 
-export const Overlay: React.FC = () => {
-    const close = () => {
-        // Add close functionality here later
-        console.log('Close overlay');
-    }
+type LoginProps = {
+    closeoverlay: () => void;
+    isVisible: boolean;
+}
+
+export const Overlay: React.FC <LoginProps>=({closeoverlay, isVisible}) => {
+ if (!isVisible) return null
+const close = () => {
+    closeoverlay();
+}
+
+
 
     const stopPropagation = (e: React.MouseEvent<HTMLDivElement>) => {
         e.stopPropagation();
@@ -19,11 +26,11 @@ export const Overlay: React.FC = () => {
                 <img 
                     className={styles['close-icon']} 
                     src={closeIcon} 
-                    alt="Close" 
+                    alt="Close-buttom" 
                     onClick={close} 
                 />
                 <div className={styles.overlaychild}>
-                    <Login />
+                    <Login CloseOverlay={closeoverlay} />
                 </div>
             </div>
         </div>

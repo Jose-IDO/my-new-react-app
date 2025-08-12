@@ -4,16 +4,12 @@ import { SearchBar } from '../SearchBar/SearchBar'
 import styles from './navbar.module.css'
 // import { Overlay } from '../overlay/Overlay'
 
+type NavbarProps = {
+ LoginButtonClicked: () => void;
 
-// type Props = {
-//     children: React.ReactNode;
-//     className?: string;
-    
-
-// }
-
-export const  Navbar  = () => {
-  // console.log(className);
+}
+export const  Navbar: React.FC <NavbarProps> = ({LoginButtonClicked}) => {
+  
   console.log( React)
   return (
     // <div className = {styles.navbar}>
@@ -24,7 +20,7 @@ export const  Navbar  = () => {
             <SearchBar />
           </div>
           
-          <ButtonCont/>
+          <ButtonCont  LoginButtonClicked={ LoginButtonClicked}/>
 
       </div>
        

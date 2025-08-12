@@ -10,14 +10,17 @@ import { Overlay } from '../components/overlay/Overlay';
 
 
 function App()  {
-  const [count, setCount] = useState(0);
+  const [Loginformisvisible, setLoginformisvisible] = useState(false);
+  const openLoginOverlay = () => setLoginformisvisible(true);
+  const closeLoginOverlay = () => setLoginformisvisible(false);
+  // const [count, setCount] = useState(0);
 
-  console.log(count, setCount);
+  // console.log(count, setCount);
 
   return (
     <div className={styles.App}>
-      <Navbar/>
-      <Overlay/> 
+      <Navbar LoginButtonClicked ={openLoginOverlay}/>
+      <Overlay isVisible= {Loginformisvisible} closeoverlay = {closeLoginOverlay}/> 
       <Landingpagemodcont/>
      
     </div>

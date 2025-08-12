@@ -1,5 +1,5 @@
 import React, { InputHTMLAttributes } from 'react'
-import styles from '../Inputs/input.module.css'
+import styles from './input.module.css'
 import { Buttons } from '../buttons/Buttons'
 
 export const InputButton: React.FC<InputHTMLAttributes<HTMLInputElement>> = (...rest) => {
