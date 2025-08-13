@@ -7,7 +7,7 @@ type TextInputProps = {
     onChange: React.ChangeEventHandler<HTMLInputElement>;
     style?: React.CSSProperties;
     label: string;
-    error?: string;
+   
     name?: string;
 }
 
@@ -17,8 +17,7 @@ export const TextInput: React.FC<TextInputProps> = ({
     onChange,
     style,
     label,
-    error,
-    name
+        name
 }) => {
     return (
         <div className={styles.inputcontainer}>
@@ -32,7 +31,7 @@ export const TextInput: React.FC<TextInputProps> = ({
                 className={styles.input}
                 style={style}
             />
-            {error && <span className={styles['input-error']}>{error}</span>}
+
         </div>
     )
 }

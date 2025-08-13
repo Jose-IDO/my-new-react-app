@@ -6,38 +6,73 @@ import { Buttons } from '../buttons/Buttons'
 import { LinksView } from '../LinksView/LinksView';
 import { Footer } from '../Footer/Footer';
 import type { LinkType } from '../../src/types/LinkTypes'
-import { Overlay } from '../overlay/Overlay'
 
- 
 export const Landingpagemodcont: React.FC = () => {
-   const [popup, setPopup] = useState(false) 
+  const [popup, setPopup] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editingId, setEditingId] = useState(0);  
 
-   const [linkData, setLinkData] = useState({
+  const [linkData, setLinkData] = useState({
     title: '',
     url: '',
     description: '',
     tags: ''
-   });
+  });
 
-   const [links, setLinks] = useState<LinkType[]>([]);
+  const [links, setLinks] = useState<LinkType[]>([]);
 
-   const handleInputChange = (field: keyof typeof linkData, value: string) => {
-    setLinkData(prev => ({
-      ...prev,
-      [field]: value
-    }));
+
+  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setLinkData({
+      ...linkData,
+      title: event.target.value
+    });
   };
 
-   const handleAddLink = () => {
-    const newLink: LinkType = {
-      id: Date.now(),
-      title: linkData.title,
-      url: linkData.url,
-      description: linkData.description,
-      tags: linkData.tags
-    };
+  const handleUrlChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setLinkData({
+      ...linkData,
+      url: event.target.value
+    });
+  };
 
-    setLinks(previousLinks => [...previousLinks, newLink]);
+  const handleDescriptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setLinkData({
+      ...linkData,
+      description: event.target.value
+    });
+  };
+
+  const handleTagsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setLinkData({
+      ...linkData,
+      tags: event.target.value
+    });
+  };
+
+  
+  const handleAddLink = () => {
+    if (editingId === 0) {
+
+      const newLink: LinkType = {
+        id: Date.now(),
+        title: linkData.title,
+        url: linkData.url,
+        description: linkData.description,
+        tags: linkData.tags
+      };
+      setLinks(previousLinks => [...previousLinks, newLink]);
+    } else {
+
+      setLinks(previousLinks => 
+        previousLinks.map(link => 
+          link.id === editingId 
+            ? { ...link, title: linkData.title, url: linkData.url, description: linkData.description, tags: linkData.tags }
+            : link
+        )
+      );
+    }
+
 
     setLinkData({ 
       title: '', 
@@ -45,19 +80,43 @@ export const Landingpagemodcont: React.FC = () => {
       description: '', 
       tags: '' 
     });
-
     setPopup(false);
+    setIsEditing(false);
+    setEditingId(0);  
   };
 
   const handleClosePopup = () => {
     setPopup(false);
+    setIsEditing(false);
+    setEditingId(0); 
+    setLinkData({ title: '', url: '', description: '', tags: '' });
   };
 
-   const handleOpenPopup = () => {
+  const handleOpenPopup = () => {
     setPopup(true);
   };
 
- return (
+  
+  const handleEdit = (link: LinkType) => {
+    setLinkData({
+      title: link.title,
+      url: link.url,
+      description: link.description,
+      tags: link.tags
+    });
+    setIsEditing(true);
+    setEditingId(link.id);  
+    setPopup(true);
+  };
+
+  const handleDelete = (id: number) => {
+    const confirmDelete = window.confirm('Are you sure you want to delete this link?');
+    if (confirmDelete) {
+      setLinks(previousLinks => previousLinks.filter(link => link.id !== id));
+    }
+  };
+
+  return (
     <>
       <div className={styles.landingpagemodulecont}>
         
@@ -73,16 +132,15 @@ export const Landingpagemodcont: React.FC = () => {
 
             {popup && (
               <div className={styles.popupBox}>
-                <p>Add your link below</p>
+                <p>{isEditing ? 'Edit your link' : 'Add your link below'}</p>
                 <div className={styles.popupContent}>
                   <div>
-                
                     <input 
                       type="text" 
                       placeholder="bookmark title" 
                       className={styles.input}
                       value={linkData.title}
-                      onChange={(event) => handleInputChange('title', event.target.value)}
+                      onChange={handleTitleChange}
                     />
                   
                     <input 
@@ -90,7 +148,7 @@ export const Landingpagemodcont: React.FC = () => {
                       placeholder="Paste your bookmark" 
                       className={styles.input}
                       value={linkData.url}
-                      onChange={(event) => handleInputChange('url', event.target.value)}
+                      onChange={handleUrlChange}
                     />
                  
                     <input 
@@ -98,7 +156,7 @@ export const Landingpagemodcont: React.FC = () => {
                       placeholder="Bookmark description" 
                       className={styles.input}
                       value={linkData.description}
-                      onChange={(event) => handleInputChange('description', event.target.value)}
+                      onChange={handleDescriptionChange}
                     />
                
                     <input 
@@ -106,12 +164,12 @@ export const Landingpagemodcont: React.FC = () => {
                       placeholder="bookmark tags" 
                       className={styles.input}
                       value={linkData.tags}
-                      onChange={(event) => handleInputChange('tags', event.target.value)}
+                      onChange={handleTagsChange}
                     />
                   </div>
                    
                   <Buttons bgColor="popupbuttonone" onClick={handleAddLink}>
-                    Add bookmark
+                    {isEditing ? 'Update bookmark' : 'Add bookmark'}
                   </Buttons>
                   <Buttons bgColor="popupbuttontwo" onClick={handleClosePopup}>
                     Close
@@ -122,14 +180,14 @@ export const Landingpagemodcont: React.FC = () => {
           </div>  
         </Landingpagemodule>
 
-           {/* <Overlay className = {styles.overlay}/>  */}
-
         <Landingpagemodule modcolor="modcolorone">
           <div className={styles.secondmodule}>
-            <LinksView links={links} />
-            {/* <Overlay className = {styles.overlay}/>    */}
+            <LinksView 
+              links={links}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+            />
           </div>
-            
         </Landingpagemodule>
       </div>
       

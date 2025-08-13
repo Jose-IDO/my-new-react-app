@@ -1,22 +1,22 @@
 import React from 'react'
 import styles from './LinksView.module.css'
 import type { LinkType } from '../../src/types/LinkTypes'
-// import { Overlay } from '../overlay/Overlay'
+import { Buttons } from '../buttons/Buttons'
 
 type LinksViewProps = {
   links: LinkType[];
+  onEdit: (link: LinkType) => void;    
+  onDelete: (id: number) => void;      
 }
 
-export const LinksView: React.FC<LinksViewProps> = ({ links }) => {
+export const LinksView: React.FC<LinksViewProps> = ({ links, onEdit, onDelete }) => {
   const linksWithTags = links.filter(function(link) {
     return link.tags !== '' && link.tags !== null && link.tags !== undefined;
   });
 
   return (
     <div className={styles.linksview}>
-        {/* <Overlay className = {styles.overlay}/>  */}
       <h2 className={styles.title}>Your Saved Links</h2>
-      
       
       <div className={styles.stats}>
         <div className={styles.statitem}>
@@ -34,6 +34,7 @@ export const LinksView: React.FC<LinksViewProps> = ({ links }) => {
         <div className={styles.headeritem}>Bookmark</div>
         <div className={styles.headeritem}>Description</div>
         <div className={styles.headeritem}>Tags</div>
+        <div className={styles.headeritem}>Actions</div>
       </div>
 
       {links.map(function(link) {
@@ -56,6 +57,14 @@ export const LinksView: React.FC<LinksViewProps> = ({ links }) => {
             </div>
             <div className={styles.rowitem}>
               {link.tags}
+            </div>
+            <div className={styles.rowitem}>
+              <Buttons bgColor="bgYellow" onClick={() => onEdit(link)}>
+                Edit
+              </Buttons>
+              <Buttons bgColor="bgRed" onClick={() => onDelete(link.id)}>
+                Delete
+              </Buttons>
             </div>
           </div>
         );

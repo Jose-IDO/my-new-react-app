@@ -28,7 +28,7 @@ export const Login: React.FC<LoginProps> = ({CloseOverlay}) => {
     return (
         <div className={styles['auth-container']}>
             <h2 className = {styles.h2}>Login</h2>
- <TextInput 
+            <TextInput 
                 label='Email' 
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
