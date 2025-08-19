@@ -1,14 +1,16 @@
-import React from 'react'
+import React, { useContext, createContext } from 'react'
 import { ButtonCont } from '../ButtonContainer/ButtonCont'
 import { SearchBar } from '../SearchBar/SearchBar'
 import { Buttons } from '../buttons/Buttons'
 import styles from './navbar.module.css'
 
+const LinksContext = createContext<any[]>([]);
+
 type NavbarProps = {
   LoginButtonClicked: () => void;
   searchInput: string;
   onSearchInputChange: (value: string) => void;
-  onSearchSubmit: () => void;
+  onSearchSubmit: (links: any[]) => void;
   onClearSearch: () => void;
 }
 
@@ -20,14 +22,18 @@ export const Navbar: React.FC<NavbarProps> = ({
   onClearSearch
 }) => {
   
-
   const handleKeyPress = (event: React.KeyboardEvent) => {
     if (event.key === 'Enter') {
-      onSearchSubmit();
+      const savedLinks = JSON.parse(localStorage.getItem('savedLinks') || '[]');
+      onSearchSubmit(savedLinks);
     }
   };
 
-  console.log(React)
+  const handleSearchClick = () => {
+    const savedLinks = JSON.parse(localStorage.getItem('savedLinks') || '[]');
+    onSearchSubmit(savedLinks);
+  };
+
   return (
     <div className={styles.navbar}>
       <div className={styles.navbarcontent}>
@@ -40,7 +46,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               onKeyPress={handleKeyPress}
             />
             <div className={styles.searchbuttons}>
-              <Buttons bgColor="contbuttonone" onClick={onSearchSubmit}>
+              <Buttons bgColor="contbuttonone" onClick={handleSearchClick}>
                 Search
               </Buttons>
               {searchInput && (

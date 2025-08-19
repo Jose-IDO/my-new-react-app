@@ -1,13 +1,18 @@
 import React from 'react'
-import { useState } from 'react';
-import styles from './landingpagemodcont.module.css';
+import { useState, useEffect } from 'react';
+import styles from '../landingpagemodulecont/landingpagemodcont.module.css';
 import { Landingpagemodule } from '../landingpagemodules/Landingpagemodule';
 import { Buttons } from '../buttons/Buttons'
 import { LinksView } from '../LinksView/LinksView';
 import { Footer } from '../Footer/Footer';
 import type { LinkType } from '../../src/types/LinkTypes'
 
-export const Landingpagemodcont: React.FC = () => {
+type LandingpagemodcontProps = {
+  filteredLinks: LinkType[];
+  searchTerm: string;
+}
+
+export const Landingpagemodcont: React.FC<LandingpagemodcontProps> = ({ filteredLinks, searchTerm }) => {
   const [popup, setPopup] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editingId, setEditingId] = useState(0);  
@@ -20,6 +25,17 @@ export const Landingpagemodcont: React.FC = () => {
   });
 
   const [links, setLinks] = useState<LinkType[]>([]);
+
+  useEffect(() => {
+    const savedLinks = localStorage.getItem('savedLinks');
+    if (savedLinks) {
+      setLinks(JSON.parse(savedLinks));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('savedLinks', JSON.stringify(links));
+  }, [links]);
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLinkData({
@@ -49,10 +65,8 @@ export const Landingpagemodcont: React.FC = () => {
     });
   };
 
-  
   const handleAddLink = () => {
     if (editingId === 0) {
-
       const newLink: LinkType = {
         id: Date.now(),
         title: linkData.title,
@@ -62,7 +76,6 @@ export const Landingpagemodcont: React.FC = () => {
       };
       setLinks([...links, newLink]);
     } else {
-
       setLinks(links.map(link => 
           link.id === editingId 
             ? { ...link, title: linkData.title, url: linkData.url, description: linkData.description, tags: linkData.tags }
@@ -70,7 +83,6 @@ export const Landingpagemodcont: React.FC = () => {
         )
       );
     }
-
 
     setLinkData({ 
       title: '', 
@@ -94,7 +106,6 @@ export const Landingpagemodcont: React.FC = () => {
     setPopup(true);
   };
 
-  
   const handleEdit = (link: LinkType) => {
     setLinkData({
       title: link.title,
@@ -113,6 +124,8 @@ export const Landingpagemodcont: React.FC = () => {
       setLinks(previousLinks => previousLinks.filter(link => link.id !== id));
     }
   };
+
+  const displayLinks = filteredLinks.length > 0 ? filteredLinks : links;
 
   return (
     <>
@@ -181,10 +194,11 @@ export const Landingpagemodcont: React.FC = () => {
         <Landingpagemodule modcolor="modcolorone">
           <div className={styles.secondmodule}>
             <LinksView 
-              links={links}
+              links={displayLinks}
               onEdit={handleEdit}
               onDelete={handleDelete}
               allLinksCount={links.length}
+              activeSearchTerm={searchTerm}
             />
           </div>
         </Landingpagemodule>
