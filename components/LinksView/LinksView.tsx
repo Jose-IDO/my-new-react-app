@@ -5,10 +5,10 @@ import { Buttons } from '../buttons/Buttons'
 
 type LinksViewProps = {
   links: LinkType[];
-  allLinksCount: number; // Total links count for context
+  allLinksCount: number;
   onEdit: (link: LinkType) => void;    
   onDelete: (id: number) => void;
-  activeSearchTerm?: string; // Current search term
+  activeSearchTerm?: string;
 }
 
 export const LinksView: React.FC<LinksViewProps> = ({ 
@@ -22,7 +22,6 @@ export const LinksView: React.FC<LinksViewProps> = ({
   const linksWithTags = links.filter(function(link) {
     return link.tags !== '' && link.tags !== null && link.tags !== undefined;
   });
-
 
   const isSearching = activeSearchTerm && activeSearchTerm.length > 0;
   const displayTitle = isSearching 

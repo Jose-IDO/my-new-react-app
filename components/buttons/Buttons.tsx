@@ -1,12 +1,10 @@
 import React from 'react'
-import styles from './Buttons.module.css' 
+import styles from './buttons.module.css'
 
 type ButtonProps = {
   children: React.ReactNode;
   bgColor: string;
   onClick?: () => void
-  // CloseOverlay?: () => void; 
-
 }
 
 export const Buttons: React.FC<ButtonProps> = ({ children, bgColor, onClick }) => {
