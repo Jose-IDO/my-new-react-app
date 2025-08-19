@@ -1,7 +1,7 @@
 import React, { useContext, createContext } from 'react'
-import { ButtonCont } from '../ButtonContainer/ButtonCont'
-import { SearchBar } from '../SearchBar/SearchBar'
-import { Buttons } from '../buttons/Buttons'
+import { ButtonCont } from '../components/ButtonContainer/ButtonCont'
+import { SearchBar } from '../components/SearchBar/SearchBar'
+import { Buttons } from '../components/buttons/Buttons'
 import styles from './navbar.module.css'
 
 const LinksContext = createContext<any[]>([]);

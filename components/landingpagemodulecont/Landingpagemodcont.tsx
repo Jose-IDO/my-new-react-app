@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
-import styles from '../landingpagemodulecont/landingpagemodcont.module.css';
+import styles from '../landingpagemodulecont/landingpagemodcont.module.css'
 import { Landingpagemodule } from '../landingpagemodules/Landingpagemodule';
 import { Buttons } from '../buttons/Buttons'
 import { LinksView } from '../LinksView/LinksView';
