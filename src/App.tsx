@@ -1,30 +1,65 @@
+import React, { useContext, createContext } from 'react'
+import { ButtonCont } from '../ButtonContainer/ButtonCont'
+import { SearchBar } from '../SearchBar/SearchBar'
+import { Buttons } from '../buttons/Buttons'
+import styles from './navbar.module.css'
 
+const LinksContext = createContext<any[]>([]);
 
-import { useState } from 'react';
-import styles from './App.module.css';  
-import { Navbar } from '../components/Navbar/Navbar';
-import { Landingpagemodcont } from '../components/landingpagemodulecont/Landingpagemodcont'
-import { Overlay } from '../components/overlay/Overlay';
-// import { Landingpagemodule } from '../components/landingpagemodules/Landingpagemodule';
-// import {Login} from '../components/Authentication/Login'
-
-
-function App()  {
-  const [Loginformisvisible, setLoginformisvisible] = useState(false);
-  const openLoginOverlay = () => setLoginformisvisible(true);
-  const closeLoginOverlay = () => setLoginformisvisible(false);
-  // const [count, setCount] = useState(0);
-
-  // console.log(count, setCount);
-
-  return (
-    <div className={styles.App}>
-      <Navbar LoginButtonClicked ={openLoginOverlay}/>
-      <Overlay isVisible= {Loginformisvisible} closeoverlay = {closeLoginOverlay}/> 
-      <Landingpagemodcont/>
-     
-    </div>
-  );
+type NavbarProps = {
+  LoginButtonClicked: () => void;
+  searchInput: string;
+  onSearchInputChange: (value: string) => void;
+  onSearchSubmit: (links: any[]) => void;
+  onClearSearch: () => void;
 }
 
-export default App;
+export const Navbar: React.FC<NavbarProps> = ({
+  LoginButtonClicked,
+  searchInput,
+  onSearchInputChange,
+  onSearchSubmit,
+  onClearSearch
+}) => {
+  
+  const handleKeyPress = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      const savedLinks = JSON.parse(localStorage.getItem('savedLinks') || '[]');
+      onSearchSubmit(savedLinks);
+    }
+  };
+
+  const handleSearchClick = () => {
+    const savedLinks = JSON.parse(localStorage.getItem('savedLinks') || '[]');
+    onSearchSubmit(savedLinks);
+  };
+
+  return (
+    <div className={styles.navbar}>
+      <div className={styles.navbarcontent}>
+        <div className={styles.searchcontainer}>
+          <div className={styles.searchgroup}>
+            <SearchBar 
+              searchValue={searchInput}
+              onSearchChange={onSearchInputChange}
+              placeholder="Search your links by title, URL, description, or tags..."
+              onKeyPress={handleKeyPress}
+            />
+            <div className={styles.searchbuttons}>
+              <Buttons bgColor="contbuttonone" onClick={handleSearchClick}>
+                Search
+              </Buttons>
+              {searchInput && (
+                <Buttons bgColor="bgRed" onClick={onClearSearch}>
+                  Clear
+                </Buttons>
+              )}
+            </div>
+          </div>
+        </div>
+        
+        <ButtonCont LoginButtonClicked={LoginButtonClicked}/>
+      </div>
+    </div>
+  )
+}

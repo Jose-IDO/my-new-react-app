@@ -5,7 +5,7 @@ type ButtonProps = {
   children: React.ReactNode;
   bgColor: string;
   onClick?: () => void
-  CloseOverlay?: () => void; 
+  // CloseOverlay?: () => void; 
 
 }
 

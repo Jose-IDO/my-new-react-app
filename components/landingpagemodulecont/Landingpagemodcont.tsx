@@ -21,7 +21,6 @@ export const Landingpagemodcont: React.FC = () => {
 
   const [links, setLinks] = useState<LinkType[]>([]);
 
-
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLinkData({
       ...linkData,
@@ -61,11 +60,10 @@ export const Landingpagemodcont: React.FC = () => {
         description: linkData.description,
         tags: linkData.tags
       };
-      setLinks(previousLinks => [...previousLinks, newLink]);
+      setLinks([...links, newLink]);
     } else {
 
-      setLinks(previousLinks => 
-        previousLinks.map(link => 
+      setLinks(links.map(link => 
           link.id === editingId 
             ? { ...link, title: linkData.title, url: linkData.url, description: linkData.description, tags: linkData.tags }
             : link
@@ -186,6 +184,7 @@ export const Landingpagemodcont: React.FC = () => {
               links={links}
               onEdit={handleEdit}
               onDelete={handleDelete}
+              allLinksCount={links.length}
             />
           </div>
         </Landingpagemodule>

@@ -5,27 +5,55 @@ import { Buttons } from '../buttons/Buttons'
 
 type LinksViewProps = {
   links: LinkType[];
+  allLinksCount: number; // Total links count for context
   onEdit: (link: LinkType) => void;    
-  onDelete: (id: number) => void;      
+  onDelete: (id: number) => void;
+  activeSearchTerm?: string; // Current search term
 }
 
-export const LinksView: React.FC<LinksViewProps> = ({ links, onEdit, onDelete }) => {
+export const LinksView: React.FC<LinksViewProps> = ({ 
+  links, 
+  allLinksCount,
+  onEdit, 
+  onDelete, 
+  activeSearchTerm 
+}) => {
+
   const linksWithTags = links.filter(function(link) {
     return link.tags !== '' && link.tags !== null && link.tags !== undefined;
   });
 
+
+  const isSearching = activeSearchTerm && activeSearchTerm.length > 0;
+  const displayTitle = isSearching 
+    ? `Search Results` 
+    : "Your Saved Links";
+
   return (
     <div className={styles.linksview}>
-      <h2 className={styles.title}>Your Saved Links</h2>
+      <h2 className={styles.title}>{displayTitle}</h2>
+      
+
+      {isSearching && (
+        <div className={styles.searchcontext}>
+          <p>
+            Showing {links.length} of {allLinksCount} links matching "<strong>{activeSearchTerm}</strong>"
+          </p>
+        </div>
+      )}
       
       <div className={styles.stats}>
         <div className={styles.statitem}>
           <span className={styles.statcount}>{links.length}</span>
-          <span className={styles.statlabel}>Total Links</span>
+          <span className={styles.statlabel}>
+            {isSearching ? "Results Found" : "Total Links"}
+          </span>
         </div>
         <div className={styles.statitem}>
           <span className={styles.statcount}>{linksWithTags.length}</span>
-          <span className={styles.statlabel}>Tagged Links</span>
+          <span className={styles.statlabel}>
+            {isSearching ? "Tagged Results" : "Tagged Links"}
+          </span>
         </div>
       </div>
 
@@ -72,7 +100,14 @@ export const LinksView: React.FC<LinksViewProps> = ({ links, onEdit, onDelete })
 
       {links.length === 0 && (
         <div className={styles.emptystate}>
-          <p>No links saved yet. Add your first link above!</p>
+          {isSearching ? (
+            <>
+              <p>No links found matching "<strong>{activeSearchTerm}</strong>".</p>
+              <p>Try a different search term or check your spelling.</p>
+            </>
+          ) : (
+            <p>No links saved yet. Add your first link above!</p>
+          )}
         </div>
       )}
     </div>
