@@ -9,9 +9,9 @@ body {
   width: 100%;
   min-height: 100vh;
   padding-top: 70px;    
-  padding-bottom: 60px;
+  padding-bottom: 100px;
   background-image: url('./assets/backgroundimage/snapitbackground.jpeg');
-  background-size: 100% calc(100vh - 130px);
+  background-size: 100% calc(100vh - 170px);
   background-position: center;
   background-attachment: fixed;
   background-repeat: no-repeat;
