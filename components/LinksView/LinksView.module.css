@@ -231,6 +231,39 @@
   font-weight: 600;
 }
 
+.plusButton {
+  position: fixed;
+  bottom: 120px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #d96614;
+  color: #ffffff;
+  border: none;
+  font-size: 36px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(217, 102, 20, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  z-index: 999;
+  line-height: 1;
+  padding: 0;
+}
+
+.plusButton:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 6px 16px rgba(217, 102, 20, 0.5);
+  background-color: #b45700;
+}
+
+.plusButton:active {
+  transform: translateY(-1px) scale(1.02);
+}
+
 @media screen and (min-width: 481px) {
   .tablerow {
     flex-direction: row;

@@ -1,7 +1,12 @@
 import React from 'react'
 import styles from './Footer.module.css'
+import { Buttons } from '../buttons/Buttons'
 
-export const Footer: React.FC = () => {
+type FooterProps = {
+  onAboutUsClick: () => void;
+}
+
+export const Footer: React.FC<FooterProps> = ({ onAboutUsClick }) => {
   return (
     <footer className={styles.footer}>
       <div className={styles.footercontent}>
@@ -10,6 +15,11 @@ export const Footer: React.FC = () => {
         </div>
         <div className={styles.branding}>
           <p>Save. Organize. Access Anywhere.</p>
+        </div>
+        <div className={styles.aboutButton}>
+          <Buttons bgColor="bgGreen" onClick={onAboutUsClick}>
+            About Us
+          </Buttons>
         </div>
       </div>
     </footer>

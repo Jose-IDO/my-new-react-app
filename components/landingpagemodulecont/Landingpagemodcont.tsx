@@ -5,6 +5,7 @@ import { Landingpagemodule } from '../landingpagemodules/Landingpagemodule';
 import { Buttons } from '../buttons/Buttons'
 import { LinksView } from '../LinksView/LinksView';
 import { Footer } from '../Footer/Footer';
+import { AboutUsOverlay } from '../AboutUsOverlay/AboutUsOverlay';
 import type { LinkType } from '../../src/types/LinkTypes'
 
 type LandingpagemodcontProps = {
@@ -15,7 +16,8 @@ type LandingpagemodcontProps = {
 export const Landingpagemodcont: React.FC<LandingpagemodcontProps> = ({ filteredLinks, searchTerm }) => {
   const [popup, setPopup] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [editingId, setEditingId] = useState(0);  
+  const [editingId, setEditingId] = useState(0);
+  const [showAboutUs, setShowAboutUs] = useState(false);  
 
   const [linkData, setLinkData] = useState({
     title: '',
@@ -215,7 +217,11 @@ export const Landingpagemodcont: React.FC<LandingpagemodcontProps> = ({ filtered
         </Landingpagemodule>
       </div>
       
-      <Footer />
+      <Footer onAboutUsClick={() => setShowAboutUs(true)} />
+      <AboutUsOverlay 
+        isVisible={showAboutUs} 
+        closeOverlay={() => setShowAboutUs(false)} 
+      />
     </>
   )
 }

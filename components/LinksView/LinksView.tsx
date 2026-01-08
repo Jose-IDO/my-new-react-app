@@ -106,6 +106,14 @@ export const LinksView: React.FC<LinksViewProps> = ({
           )}
         </div>
       )}
+
+      <button 
+        className={styles.plusButton} 
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        aria-label="Scroll to top"
+      >
+        +
+      </button>
     </div>
   )
 }
