@@ -2,6 +2,7 @@ import React from 'react'
 import styles from './LinksView.module.css'
 import type { LinkType } from '../../src/types/LinkTypes'
 import { Buttons } from '../buttons/Buttons'
+import { StatItem } from '../StatItem/StatItem'
 
 type LinksViewProps = {
   links: LinkType[];
@@ -42,18 +43,14 @@ export const LinksView: React.FC<LinksViewProps> = ({
       )}
       
       <div className={styles.stats}>
-        <div className={styles.statitem}>
-          <span className={styles.statcount}>{links.length}</span>
-          <span className={styles.statlabel}>
-            {isSearching ? "Results Found" : "Total Links"}
-          </span>
-        </div>
-        <div className={styles.statitem}>
-          <span className={styles.statcount}>{linksWithTags.length}</span>
-          <span className={styles.statlabel}>
-            {isSearching ? "Tagged Results" : "Tagged Links"}
-          </span>
-        </div>
+        <StatItem 
+          count={links.length}
+          label={isSearching ? "Results Found" : "Total Links"}
+        />
+        <StatItem 
+          count={linksWithTags.length}
+          label={isSearching ? "Tagged Results" : "Tagged Links"}
+        />
       </div>
 
       <div className={styles.tableheader}>

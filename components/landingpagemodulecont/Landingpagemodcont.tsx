@@ -25,17 +25,28 @@ export const Landingpagemodcont: React.FC<LandingpagemodcontProps> = ({ filtered
   });
 
   const [links, setLinks] = useState<LinkType[]>([]);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
     const savedLinks = localStorage.getItem('savedLinks');
     if (savedLinks) {
-      setLinks(JSON.parse(savedLinks));
+      try {
+        const parsedLinks = JSON.parse(savedLinks);
+        if (Array.isArray(parsedLinks) && parsedLinks.length > 0) {
+          setLinks(parsedLinks);
+        }
+      } catch (error) {
+        console.error('Error loading saved links:', error);
+      }
     }
+    setIsInitialized(true);
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('savedLinks', JSON.stringify(links));
-  }, [links]);
+    if (isInitialized) {
+      localStorage.setItem('savedLinks', JSON.stringify(links));
+    }
+  }, [links, isInitialized]);
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLinkData({

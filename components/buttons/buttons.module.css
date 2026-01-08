@@ -7,7 +7,7 @@ body{
 
 .button {
   cursor: pointer;
-   display: flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   height: 40px;
@@ -18,8 +18,18 @@ body{
   border: none;
   border-radius: 12px;
   font-size: 16px;
-  transition: transform 0.3s ease
+  font-weight: 600;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  white-space: nowrap;
+}
 
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.button:active {
+  transform: translateY(0);
 }
 .button:hover {
   background-color: #1a4434;
@@ -30,85 +40,109 @@ body{
 }
 
 .bgGreen{
-   
   background-color: #648105;
+  color: #ffffff;
+}
 
+.bgGreen:hover {
+  background-color: #7a9a06;
 }
 
 .bgYellow{
-
   background-color: #f3a000;
-  
+  color: #ffffff;
+}
+
+.bgYellow:hover {
+  background-color: #ffb020;
 }
 
 .bgRed{
-
   background-color: #cf4100;
- 
+  color: #ffffff;
+}
+
+.bgRed:hover {
+  background-color: #e64a00;
 }
 
 .contbuttonone{
- cursor: pointer;
-   display: flex;
+  cursor: pointer;
+  display: flex;
   align-items: center;
   justify-content: center;
   height: fit-content;
+  min-height: 40px;
   width: fit-content;
-  padding: 8px 16px;
+  min-width: 120px;
+  padding: 10px 20px;
   background-color: #b45700;
-  color: rgb(18, 17, 17);
+  color: #ffffff;
   border: none;
   border-radius: 12px;
   font-size: 16px;
-  transition: transform 0.3s ease;
+  font-weight: 600;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
   opacity: 1;
 }
 
 .contbuttonone:hover{
-  opacity: 100%;
-  transform: translateY(-3px);
+  opacity: 1;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(180, 87, 0, 0.3);
+  background-color: #d96614;
 }
 
 .popupbuttonone{
- cursor: pointer;
-   display: flex;
+  cursor: pointer;
+  display: flex;
   align-items: center;
   justify-content: center;
   height: fit-content;
+  min-height: 40px;
   width: fit-content;
-  padding: 8px 16px;
+  min-width: 140px;
+  padding: 10px 20px;
   background-color: #b45700;
-  color: rgb(18, 17, 17);
+  color: #ffffff;
   border: none;
   border-radius: 12px;
   font-size: 16px;
-  transition: transform 0.3s ease;
+  font-weight: 600;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
   opacity: 1;
 }
 
 .popupbuttonone:hover{
-  opacity: 100%;
-  transform: translateY(-3px);
+  opacity: 1;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(180, 87, 0, 0.3);
+  background-color: #d96614;
 }
 
 .popupbuttontwo{
- cursor: pointer;
-   display: flex;
+  cursor: pointer;
+  display: flex;
   align-items: center;
   justify-content: center;
   height: fit-content;
+  min-height: 40px;
   width: fit-content;
-  padding: 8px 16px;
-  background-color: #b45700;
-  color: rgb(18, 17, 17);
+  min-width: 100px;
+  padding: 10px 20px;
+  background-color: #6c757d;
+  color: #ffffff;
   border: none;
   border-radius: 12px;
   font-size: 16px;
-  transition: transform 0.3s ease;
+  font-weight: 600;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
   opacity: 1;
 }
 
 .popupbuttontwo:hover{
-  opacity: 100%;
-  transform: translateY(-3px);
+  opacity: 1;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(108, 117, 125, 0.3);
+  background-color: #5a6268;
 }
