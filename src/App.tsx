@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react'
 import { Navbar } from '../components/Navbar/Navbar'
 import { Landingpagemodcont } from '../components/landingpagemodulecont/Landingpagemodcont'
-import { Overlay } from '../components/overlay/Overlay'
 import type { LinkType } from './types/LinkTypes'
 import './app.module.css'
 
 function App() {
-  const [isLoginVisible, setIsLoginVisible] = useState(false)
   const [searchInput, setSearchInput] = useState('')
   const [filteredLinks, setFilteredLinks] = useState<LinkType[]>([])
   const [allLinks, setAllLinks] = useState<LinkType[]>([])
@@ -50,20 +48,8 @@ function App() {
     setFilteredLinks(filtered)
   }, [searchInput, allLinks])
 
-  const LoginButtonClicked = () => {
-    setIsLoginVisible(true)
-  }
-
-  const CloseOverlay = () => {
-    setIsLoginVisible(false)
-  }
-
   const handleSearchInputChange = (value: string) => {
     setSearchInput(value)
-  }
-
-  const handleSearchSubmit = (links: LinkType[]) => {
-    setAllLinks(links);
   }
 
   const handleClearSearch = () => {
@@ -74,19 +60,13 @@ function App() {
   return (
     <>
       <Navbar
-        LoginButtonClicked={LoginButtonClicked}
         searchInput={searchInput}
         onSearchInputChange={handleSearchInputChange}
-        onSearchSubmit={handleSearchSubmit}
         onClearSearch={handleClearSearch}
       />
       <Landingpagemodcont
         filteredLinks={filteredLinks}
         searchTerm={searchInput}
-      />
-      <Overlay
-        closeoverlay={CloseOverlay}
-        isVisible={isLoginVisible}
       />
     </>
   )
