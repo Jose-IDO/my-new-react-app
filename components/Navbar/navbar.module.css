@@ -1,7 +1,7 @@
 
 
 .navbar{
-  height: 100px;
+  height: 70px;
   width: 100%;
   flex-direction: row;
   background: linear-gradient(to right, #d96614, #164437);
@@ -13,7 +13,7 @@
 .navbarcontent {
   display: flex;
   flex-direction: row;
-  height: 100px;
+  height: 70px;
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
