@@ -4,7 +4,7 @@
   left: 0;
   width: 100%;
   background: linear-gradient(to right, #d96614, #164437);
-  padding: 20px 0;
+  padding: 0;
   z-index: 1000;
 }
 
@@ -16,7 +16,7 @@
   gap: 10px;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 15px;
+  padding: 10px 15px;
 }
 
 .copyright p {
@@ -43,7 +43,7 @@
 
 @media screen and (min-width: 481px) {
   .footer {
-    padding: 25px 0;
+    padding: 0;
   }
   
   .footercontent {
@@ -63,7 +63,7 @@
 
 @media screen and (min-width: 768px) {
   .footer {
-    padding: 30px 0;
+    padding: 0;
   }
   
   .footercontent {
@@ -92,7 +92,7 @@
 
 @media screen and (min-width: 1024px) {
   .footer {
-    padding: 35px 0;
+    padding: 0;
   }
   
   .footercontent {
