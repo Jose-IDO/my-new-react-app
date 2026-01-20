@@ -25,12 +25,13 @@ export const SearchBar: React.FC<SearchBarProps> = ({
 
   return (
     <input 
-      type="text" 
+      type="search"
       className={`${styles.searchbar} ${className || ''}`}
       placeholder={placeholder}
       value={searchValue}
       onChange={handleInputChange}
       onKeyPress={onKeyPress}
+      aria-label="Search links"
     />
   )
 }

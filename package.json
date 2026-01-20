@@ -1,7 +1,7 @@
 { "homepage": "https://Jose-IDO.github.io/my-new-react-app",
-  "name": "my-vue-app",
+  "name": "snapit-link-storage",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
 "scripts": {
   "dev": "vite",

@@ -1,6 +1,7 @@
-import { SearchBar } from '../SearchBar/SearchBar'
-import { Buttons } from '../buttons/Buttons'
-import styles from './navbar.module.css'
+import React from 'react';
+import { SearchBar } from '../SearchBar/SearchBar';
+import { Buttons } from '../buttons/Buttons';
+import styles from './navbar.module.css';
 
 type NavbarProps = {
   searchInput: string;

@@ -1,23 +1,32 @@
-import React from 'react'
-import { useState, useEffect } from 'react';
-import styles from '../landingpagemodulecont/landingpagemodcont.module.css'
+import React, { useState, useCallback } from 'react';
+import styles from '../landingpagemodulecont/landingpagemodcont.module.css';
 import { Landingpagemodule } from '../landingpagemodules/Landingpagemodule';
-import { Buttons } from '../buttons/Buttons'
+import { Buttons } from '../buttons/Buttons';
 import { LinksView } from '../LinksView/LinksView';
 import { Footer } from '../Footer/Footer';
 import { AboutUsOverlay } from '../AboutUsOverlay/AboutUsOverlay';
-import type { LinkType } from '../../src/types/LinkTypes'
+import { useLocalStorage } from '../../src/hooks/useLocalStorage';
+import { validateLink } from '../../src/utils/validation';
+import type { LinkType } from '../../src/types/LinkTypes';
 
 type LandingpagemodcontProps = {
   filteredLinks: LinkType[];
   searchTerm: string;
+  allLinks: LinkType[];
 }
 
-export const Landingpagemodcont: React.FC<LandingpagemodcontProps> = ({ filteredLinks, searchTerm }) => {
+export const Landingpagemodcont: React.FC<LandingpagemodcontProps> = ({ 
+  filteredLinks, 
+  searchTerm,
+  allLinks 
+}) => {
   const [popup, setPopup] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [editingId, setEditingId] = useState(0);
-  const [showAboutUs, setShowAboutUs] = useState(false);  
+  const [editingId, setEditingId] = useState<number | null>(null);
+  const [showAboutUs, setShowAboutUs] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const { links, setLinks } = useLocalStorage();
 
   const [linkData, setLinkData] = useState({
     title: '',
@@ -26,117 +35,85 @@ export const Landingpagemodcont: React.FC<LandingpagemodcontProps> = ({ filtered
     tags: ''
   });
 
-  const [links, setLinks] = useState<LinkType[]>([]);
-  const [isInitialized, setIsInitialized] = useState(false);
+  const handleInputChange = useCallback((field: keyof typeof linkData) => 
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setLinkData(prev => ({
+        ...prev,
+        [field]: event.target.value
+      }));
+      setError(null);
+    }, []
+  );
 
-  useEffect(() => {
-    const savedLinks = localStorage.getItem('savedLinks');
-    if (savedLinks) {
-      try {
-        const parsedLinks = JSON.parse(savedLinks);
-        if (Array.isArray(parsedLinks) && parsedLinks.length > 0) {
-          setLinks(parsedLinks);
-        }
-      } catch (error) {
-        console.error('Error loading saved links:', error);
-      }
+  const handleAddLink = useCallback(() => {
+    const validation = validateLink(linkData.title, linkData.url);
+    if (!validation.isValid) {
+      setError(validation.error || 'Invalid input');
+      return;
     }
-    setIsInitialized(true);
-  }, []);
 
-  useEffect(() => {
-    if (isInitialized) {
-      localStorage.setItem('savedLinks', JSON.stringify(links));
-    }
-  }, [links, isInitialized]);
-
-  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setLinkData({
-      ...linkData,
-      title: event.target.value
-    });
-  };
-
-  const handleUrlChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setLinkData({
-      ...linkData,
-      url: event.target.value
-    });
-  };
-
-  const handleDescriptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setLinkData({
-      ...linkData,
-      description: event.target.value
-    });
-  };
-
-  const handleTagsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setLinkData({
-      ...linkData,
-      tags: event.target.value
-    });
-  };
-
-  const handleAddLink = () => {
-    if (editingId === 0) {
+    if (editingId === null) {
       const newLink: LinkType = {
         id: Date.now(),
-        title: linkData.title,
-        url: linkData.url,
-        description: linkData.description,
-        tags: linkData.tags
+        title: linkData.title.trim(),
+        url: linkData.url.trim(),
+        description: linkData.description.trim(),
+        tags: linkData.tags.trim()
       };
       setLinks([...links, newLink]);
     } else {
       setLinks(links.map(link => 
-          link.id === editingId 
-            ? { ...link, title: linkData.title, url: linkData.url, description: linkData.description, tags: linkData.tags }
-            : link
-        )
-      );
+        link.id === editingId 
+          ? { 
+              ...link, 
+              title: linkData.title.trim(), 
+              url: linkData.url.trim(), 
+              description: linkData.description.trim(), 
+              tags: linkData.tags.trim() 
+            }
+          : link
+      ));
     }
 
-    setLinkData({ 
-      title: '', 
-      url: '', 
-      description: '', 
-      tags: '' 
-    });
-    setPopup(false);
-    setIsEditing(false);
-    setEditingId(0);  
-  };
-
-  const handleClosePopup = () => {
-    setPopup(false);
-    setIsEditing(false);
-    setEditingId(0); 
     setLinkData({ title: '', url: '', description: '', tags: '' });
-  };
+    setPopup(false);
+    setIsEditing(false);
+    setEditingId(null);
+    setError(null);
+  }, [linkData, editingId, links, setLinks]);
 
-  const handleOpenPopup = () => {
+  const handleClosePopup = useCallback(() => {
+    setPopup(false);
+    setIsEditing(false);
+    setEditingId(null);
+    setLinkData({ title: '', url: '', description: '', tags: '' });
+    setError(null);
+  }, []);
+
+  const handleOpenPopup = useCallback(() => {
     setPopup(true);
-  };
+    setError(null);
+  }, []);
 
-  const handleEdit = (link: LinkType) => {
+  const handleEdit = useCallback((link: LinkType) => {
     setLinkData({
-      title: link.title,
-      url: link.url,
-      description: link.description,
-      tags: link.tags
+      title: link.title || '',
+      url: link.url || '',
+      description: link.description || '',
+      tags: link.tags || ''
     });
     setIsEditing(true);
-    setEditingId(link.id);  
+    setEditingId(link.id);
     setPopup(true);
-  };
+    setError(null);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
 
-  const handleDelete = (id: number) => {
-    const confirmDelete = window.confirm('Are you sure you want to delete this link?');
-    if (confirmDelete) {
-      setLinks(previousLinks => previousLinks.filter(link => link.id !== id));
+  const handleDelete = useCallback((id: number) => {
+    if (window.confirm('Are you sure you want to delete this link?')) {
+      setLinks(prevLinks => prevLinks.filter(link => link.id !== id));
     }
-  };
+  }, [setLinks]);
 
   const displayLinks = filteredLinks.length > 0 ? filteredLinks : links;
 
@@ -155,24 +132,29 @@ export const Landingpagemodcont: React.FC<LandingpagemodcontProps> = ({ filtered
             </Buttons>
 
             {popup && (
-              <div className={styles.popupBox}>
-                <p>{isEditing ? 'Edit your link' : 'Add your link below'}</p>
+              <div className={styles.popupBox} role="dialog" aria-labelledby="popup-title" aria-modal="true">
+                <p id="popup-title">{isEditing ? 'Edit your link' : 'Add your link below'}</p>
                 <div className={styles.popupContent}>
                   <div>
                     <input 
                       type="text" 
-                      placeholder="bookmark title" 
+                      placeholder="Bookmark title *" 
                       className={styles.input}
                       value={linkData.title}
-                      onChange={handleTitleChange}
+                      onChange={handleInputChange('title')}
+                      aria-label="Bookmark title"
+                      aria-required="true"
+                      autoFocus
                     />
                   
                     <input 
                       type="url" 
-                      placeholder="Paste your bookmark" 
+                      placeholder="Paste your bookmark URL *" 
                       className={styles.input}
                       value={linkData.url}
-                      onChange={handleUrlChange}
+                      onChange={handleInputChange('url')}
+                      aria-label="Bookmark URL"
+                      aria-required="true"
                     />
                  
                     <input 
@@ -180,16 +162,29 @@ export const Landingpagemodcont: React.FC<LandingpagemodcontProps> = ({ filtered
                       placeholder="Bookmark description" 
                       className={styles.input}
                       value={linkData.description}
-                      onChange={handleDescriptionChange}
+                      onChange={handleInputChange('description')}
+                      aria-label="Bookmark description"
                     />
                
                     <input 
                       type="text" 
-                      placeholder="bookmark tags" 
+                      placeholder="Bookmark tags (comma separated)" 
                       className={styles.input}
                       value={linkData.tags}
-                      onChange={handleTagsChange}
+                      onChange={handleInputChange('tags')}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' && !e.shiftKey) {
+                          e.preventDefault();
+                          handleAddLink();
+                        }
+                      }}
+                      aria-label="Bookmark tags"
                     />
+                    {error && (
+                      <div className={styles.errorMessage} role="alert">
+                        {error}
+                      </div>
+                    )}
                   </div>
                    
                   <Buttons bgColor="popupbuttonone" onClick={handleAddLink}>
