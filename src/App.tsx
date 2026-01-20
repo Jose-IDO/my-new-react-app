@@ -32,7 +32,6 @@ function App() {
       <Landingpagemodcont
         filteredLinks={filteredLinks}
         searchTerm={searchInput}
-        allLinks={links}
       />
     </>
   );

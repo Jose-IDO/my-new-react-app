@@ -12,13 +12,11 @@ import type { LinkType } from '../../src/types/LinkTypes';
 type LandingpagemodcontProps = {
   filteredLinks: LinkType[];
   searchTerm: string;
-  allLinks: LinkType[];
 }
 
 export const Landingpagemodcont: React.FC<LandingpagemodcontProps> = ({ 
   filteredLinks, 
-  searchTerm,
-  allLinks 
+  searchTerm
 }) => {
   const [popup, setPopup] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
